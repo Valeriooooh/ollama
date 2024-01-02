@@ -40,12 +40,12 @@
   :group 'ollama
   :type 'string)
 
-(defcustom ollama:model "llama2-uncensored"
+(defcustom ollama:model "codellama"
   "Ollama model."
   :group 'ollama
   :type 'string)
 
-(defcustom ollama:language "Chinese"
+(defcustom ollama:language "English"
   "Language to translate to."
   :group 'ollama
   :type 'string)
@@ -107,6 +107,14 @@
   (with-output-to-temp-buffer "*ollama*"
     (princ
      (ollama-prompt ollama:endpoint (format "summarize \"\"\"%s\"\"\"" (buffer-substring (region-beginning) (region-end))) ollama:model))))
+
+;;;###autoload
+(defun ollama-code ()
+  "Complete code"
+  (interactive)
+  (with-output-to-temp-buffer "*ollama*"
+    (princ
+     (ollama-prompt ollama:endpoint (format "complete \"\"\"%s\"\"\"" (buffer-substring (region-beginning) (region-end))) ollama:model))))
 
 (provide 'ollama)
 ;;; ollama.el ends here
